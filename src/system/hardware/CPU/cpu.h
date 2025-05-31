@@ -4,6 +4,8 @@
 #define _AMD_VENDOR_STRING     "AuthenticAMD"
 #define _INTEL_VENDOR_STRING   "GenuineIntel"
 
+#define HAS_FEATURE(reg, bit) (((reg) & (1 << (bit))) != 0)
+
 #define IF_VENDOR_AMD(amd_arch_code) \
     do { if (!memcmp(cpu_get_vendor(), _AMD_VENDOR_STRING, (unsigned long)12)) { amd_arch_code } } while (0)
 #define IF_VENDOR_INTEL(intel_arch_code) \

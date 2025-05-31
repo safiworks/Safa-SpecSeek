@@ -13,8 +13,8 @@ MINGW = x86_64-w64-mingw32-gcc
 #
 # Flag Options for Compilers
 # 
-GCC_CFLAGS = -Wall -Wextra -Werror -O2 -m32
-MINGW_CFLAGS = -Wall -Wextra -Werror -O2 
+GCC_CFLAGS = -Wall -Wextra -Werror -Wno-unused-parameter -O2 -m32
+MINGW_CFLAGS = -Wall -Wextra -Werror -O2 -m32
 
 #
 # Detect Source files in Code, this is very broad
