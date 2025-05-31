@@ -57,7 +57,7 @@ $(WINDOWS_TARGET): $(WIN_OBJS)
 # Clean Source Dir
 #
 clean:
-	rm -f build/$(LINUX_TARGET) build/$(WINDOWS_TARGET)
+	rm -f bin/$(LINUX_TARGET) bin/$(WINDOWS_TARGET)
 	find . -name '*.gcc.o' -delete
 	find . -name '*.win.o' -delete
 
