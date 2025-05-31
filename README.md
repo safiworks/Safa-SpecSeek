@@ -1,6 +1,6 @@
 
 ![Logo](https://i.imgur.com/Zg37VpH.png)
-# SpecPeek. All in One Specification Tool
+# SpecSeek. All in One Specification Tool
 
 A soloution to finding everything there is to know about a computers specifications. all in one elegant location. **a great way to share your device specifications support and features**. not sure if your PC supports some functionality? Spec Peek will relay that to you.
 
@@ -24,7 +24,7 @@ make windows
 ```
 
 ## Documentation
-Documentation is held within the github wiki [here](https://github.com/Mellurboo/SpecPeek/wiki). I will try to keep up with it but if anything is missing feel free to raise an issue about it. However the code is commented with detailed comments so I suspect you will be able to fill in the blanks.
+Documentation is held within the github wiki [here](https://github.com/Mellurboo/SpecSeek/wiki). I will try to keep up with it but if anything is missing feel free to raise an issue about it. However the code is commented with detailed comments so I suspect you will be able to fill in the blanks.
 ## Minimum Requirements
 Currently your CPU must be at least 32-bit and have the CPUID instruction.
 
@@ -35,4 +35,4 @@ Currently your CPU must be at least 32-bit and have the CPUID instruction.
 ## Appendix
 I am creating this project as a soloution to people not knowing their PC specifications, It will be a great way for novice users to find out everything they need to know compiled into a file (or other medium) and sent off to a technition, friend, buyer or that one family friend who claims to be able to fix your device.
 
-Cross-Platform support is a high priority not only making sure SpecPeek can be ran on most operating systems but also making sure it works on many archetectures on many different configurations hardware and software alike.
+Cross-Platform support is a high priority not only making sure SpecSeek can be ran on most operating systems but also making sure it works on many archetectures on many different configurations hardware and software alike.
