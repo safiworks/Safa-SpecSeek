@@ -8,7 +8,7 @@ WINDOWS_TARGET = specseek.exe
 # Compilers for Differing Targets
 #
 GCC = gcc
-MINGW = x86_64-w64-mingw32-gcc
+MINGW = i686-w64-mingw32-gcc
 
 #
 # Flag Options for Compilers
