@@ -11,6 +11,8 @@
 #define IF_VENDOR_INTEL(intel_arch_code) \
     do { if (!memcmp(cpu_get_vendor(), _INTEL_VENDOR_STRING, (unsigned long)12)) { intel_arch_code } } while (0)
 
+#define PRINT_REGISTER_VALUES() printf("%s%s:%s():%d eax:%d, ebx:%d, ecx:%d, edx:%d\n", BMAGENTA, __FILE__, __PRETTY_FUNCTION__, __LINE__, eax, ebx, ecx, edx);
+
 /// @brief CPU Structure
 typedef struct cpu
 {

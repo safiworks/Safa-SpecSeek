@@ -6,7 +6,7 @@
 #define _ARGUMENT_PUT_FEATURES_ON_NEWLINE "--features-on-newline"
 
 
-#define IF_VERBOSE(level, args) if ((args).verbose >= (level))
+#define IF_VERBOSE(level) if (arguments.verbose >= (level))
 #define ARG_MATCH(x) if (strcmp(arg, x) == 0)
 
 typedef struct args{

@@ -4,6 +4,8 @@
 
 #include "cpu.h"
 #include "cpuid.h"
+#include "../../../utils/arguments.h"
+#include "../../../utils/terminal.h"
 
 /// @brief Build the CPU information by populating a cpu_t struct
 /// @return cpu_t CPU info structure.
@@ -27,6 +29,8 @@ const char* cpu_get_name(){
         unsigned int eax, ebx, ecx, edx;
         cpuid(0x80000002 + i, 0, &eax, &ebx, &ecx, &edx);
 
+        IF_VERBOSE(3){ PRINT_REGISTER_VALUES() }
+
         chunks[i * 4 + 0] = eax;
         chunks[i * 4 + 1] = ebx;
         chunks[i * 4 + 2] = ecx;
@@ -46,6 +50,8 @@ const char* cpu_get_vendor(){
     static char vendor_string[13];              // [VENDOR_STRING (12bytes)] + [NT(1byte)]
     unsigned int eax, ebx, ecx, edx;
     cpuid(0, 0, &eax, &ebx, &ecx, &edx);
+
+    IF_VERBOSE(3){ PRINT_REGISTER_VALUES() }
 
     //Build the Vendor String + null terminator
     memcpy(vendor_string + 0, &ebx, 4);
