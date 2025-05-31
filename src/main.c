@@ -23,7 +23,7 @@ int main(int argc, const char** argv){
 
     // Windows will close straight away after execution so this allows users to read it.
     #ifdef __MINGW32__
-    printf("\n%Spec Seek has finished, Press any key to exit: ", BWHITE);
+    printf("\n%spec Seek has finished, Press any key to exit: ", BWHITE);
     getchar();
     #endif
 }

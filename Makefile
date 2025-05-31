@@ -34,7 +34,7 @@ WIN_OBJS = $(SRCS:.c=.win.o)
 all: $(LINUX_TARGET)
 
 $(LINUX_TARGET): $(GCC_OBJS)
-	$(GCC) $(GCC_CFLAGS) -o build/$(LINUX_TARGET) $^
+	$(GCC) $(GCC_CFLAGS) -o bin/$(LINUX_TARGET) $^
 
 #
 # Windows Build `make windows` (mingw)
@@ -42,7 +42,7 @@ $(LINUX_TARGET): $(GCC_OBJS)
 windows: $(WINDOWS_TARGET)
 
 $(WINDOWS_TARGET): $(WIN_OBJS)
-	$(MINGW) $(MINGW_CFLAGS) -o build/$(WINDOWS_TARGET) $^
+	$(MINGW) $(MINGW_CFLAGS) -o bin/$(WINDOWS_TARGET) $^
 
 #
 # Object Construct Rules (Apply flags per Target)
@@ -52,6 +52,36 @@ $(WINDOWS_TARGET): $(WIN_OBJS)
 
 %.win.o: %.c
 	$(MINGW) $(MINGW_CFLAGS) -c $< -o $@
+
+#
+# Make Run Command
+#
+
+# Detect platform
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Linux)
+	PLATFORM := linux
+else ifeq ($(UNAME_S),Darwin)
+	PLATFORM := mac
+else
+	PLATFORM := windows
+endif
+
+#
+# Unified run command (automatic platform detection)
+#
+run:
+ifeq ($(PLATFORM),linux)
+	@$(MAKE) all
+	@./bin/$(LINUX_TARGET)
+else ifeq ($(PLATFORM),mac)
+	@$(MAKE) all
+	@./bin/$(LINUX_TARGET)
+else
+	@$(MAKE) windows
+	@./bin/$(WINDOWS_TARGET)
+endif
 
 #
 # Clean Source Dir
