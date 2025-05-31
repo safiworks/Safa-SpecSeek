@@ -1,8 +1,8 @@
 #
 # Target Output Details
 #
-LINUX_TARGET = specpeek
-WINDOWS_TARGET = specpeek.exe
+LINUX_TARGET = specseek
+WINDOWS_TARGET = specseek.exe
 
 #
 # Compilers for Differing Targets

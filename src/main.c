@@ -7,14 +7,14 @@
 #include "utils/terminal.h"
 #include "system/hardware/CPU/cpu.h"
 
-/// @brief Spec Peek Entry Point
+/// @brief Spec Seek Entry Point
 /// @param argc argument count
 /// @param argv argument vector
 int main(int argc, const char** argv){
     construct_arguments(argc, argv);
 
     CLEAR_SCREEN();
-    ASCII_BANNER(BBLUE, "Spec Peek");
+    ASCII_BANNER(BBLUE, "Spec Seek");
     printf("%sCompiled with GCC Version %d.%d.%d\n", BLUE,__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
     printf("%sCompiled at: %s : %s\n", BLUE, __DATE__, __TIME__);
     if (arguments.verbose != 0) printf("%sRunning in Verbose Mode {%d}\n", BLUE, arguments.verbose);
@@ -23,7 +23,7 @@ int main(int argc, const char** argv){
 
     // Windows will close straight away after execution so this allows users to read it.
     #ifdef __MINGW32__
-    printf("\n%sSpecPeek has finished, Press any key to exit: ", BWHITE);
+    printf("\n%Spec Seek has finished, Press any key to exit: ", BWHITE);
     getchar();
     #endif
 }
