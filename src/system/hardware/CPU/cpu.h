@@ -19,6 +19,7 @@ typedef struct cpu
     const char* name;
     const char* vendor;
     unsigned int model;
+    unsigned int ext_model;
     unsigned int family;
     unsigned int revision;
 }cpu_t;
@@ -43,7 +44,7 @@ void cpuid(
 /// @return cpu_t
 cpu_t init_cpu();
 
-/// @brief uses the CPUID function to return a text buffer containing the CPU Vendor
+/// @brief Uses the CPUID function to return a text buffer containing the CPU Vendor
 /// @return character array
 const char* cpu_get_vendor();
 
@@ -63,16 +64,20 @@ void cpu_check_standard_features();
 /// @brief gets the extended features from the CPUID (leaf 7 for AMD)
 void cpu_check_extended_features();
 
-/// @brief Gets the model number of the CPU following the conditions
+/// @brief get the CPU model ID leaf 1, 0
 /// @return unsigned int
 unsigned int cpu_get_model();
 
-/// @brief gets the CPU family ID following the conditions
-/// @return unsigned int
+/// @brief Gets the extended model number of the CPU, this isnt really that useful
+/// @return unsigned int full model
+unsigned int cpu_get_extended_model();
+
+/// @brief Gets the CPU family ID combining extended and base family
+/// @return unsigned int full family number
 unsigned int cpu_get_family();
 
-/// @brief gets the current CPU revision
-/// @return unsigned int
+/// @brief Gets the current CPU revision (stepping)
+/// @return unsigned int stepping number
 unsigned int cpu_get_revision();
 
 #endif
