@@ -102,4 +102,4 @@ endif
 clean:
 	rm -rf $(GCC_BIN_DIR) $(WIN_BIN_DIR)
 
-.PHONY: all windows cle
+.PHONY: all windows clean

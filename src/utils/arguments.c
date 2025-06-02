@@ -18,6 +18,6 @@ void construct_arguments(int argc, const char** argv){
             }
         }
 
-        ARG_MATCH(_ARGUMENT_PUT_FEATURES_ON_NEWLINE) { arguments.verbose = 1; }
+        ARG_MATCH(_ARGUMENT_PUT_FEATURES_ON_NEWLINE) { arguments.put_features_on_newline = 1; }
     }
 }
