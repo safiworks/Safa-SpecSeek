@@ -31,7 +31,8 @@
     MINGW Colour Escape codes (For Windows)
     these are more strict, using the GNUC based escape
     codes works, however it leaves residual characters because
-    ofc it does.
+    ofc it does, to clarify this only happens in the legacy CMD not
+    the new Microsoft Terminal.
 */
 #if defined(__MINGW32__)
 #define BLACK   "\x1b[0;30m"

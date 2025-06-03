@@ -1,8 +1,4 @@
-// amd_cpu.h
-#ifndef _AMD_MICROARCH_H
-#define _AMD_MICROARCH_H    1
-
-/// this is much less bullshit that whatever Intel is pulling over at ../intel/microarch.h
+#include <system/hardware/CPU/microarch.h>
 
 /// @brief Returns the AMD microarchitecture name based on family and model, the Linux src code was huge for this
 /// @param family CPU family
@@ -51,5 +47,3 @@ const char* amd_cpu_get_microarch(unsigned int family, unsigned int model) {
             return "Unknown AMD Microarch";
     }
 }
-
-#endif

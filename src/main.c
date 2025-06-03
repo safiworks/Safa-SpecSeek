@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "main.h"
-#include "utils/arguments.h"
-#include "utils/asciiart.h"
-#include "utils/terminal.h"
-#include "system/hardware/CPU/cpu.h"
-#include "system/hardware/CPU/intel/mircoarch.h"
-#include "system/hardware/CPU/amd/microarch.h"
+#include <main.h>
+#include <utils/arguments.h>
+#include <utils/terminal.h>
+#include <utils/asciiart.h>
+#include <system/hardware/CPU/cpu.h>
+#include <system/hardware/CPU/microarch.h>
 
 /// @brief Spec Seek Entry Point
 /// @param argc argument count

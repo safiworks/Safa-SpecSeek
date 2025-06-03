@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "arguments.h"
+#include <utils/arguments.h>
 
 args_t arguments;
 

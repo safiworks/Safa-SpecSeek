@@ -1,10 +1,9 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "cpu.h"
-#include "cpuid.h"
-#include "../../../utils/arguments.h"
-#include "../../../utils/terminal.h"
+#include <system/hardware/CPU/cpu.h>
+#include <utils/arguments.h>
+#include <utils/terminal.h>
 
 /// @brief Build the CPU information by populating a cpu_t struct
 /// @return cpu_t CPU info structure.

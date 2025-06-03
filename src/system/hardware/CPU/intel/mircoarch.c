@@ -1,12 +1,11 @@
-#ifndef INTEL_MICROARCH_H
-#define INTEL_MICROARCH_H   1
+#include <system/hardware/CPU/microarch.h>
 
 /// @brief get the Micro archetecture for the Current CPU [INTEL ONLY]
 /// @param family CPU Family Value
 /// @param model the CPUs BASE model
 /// @param ext_model the CPUs Extended Model
 /// @param stepping revision?
-/// @return MicroArchetecture string.
+/// @return Microarchetecture string.
 const char* intel_get_cpu_microarch(unsigned int family,
     unsigned int model,
     unsigned int ext_model,
@@ -201,5 +200,3 @@ const char* intel_get_cpu_microarch(unsigned int family,
     }
     return "Unknown Intel Microarch";
 }
-
-#endif

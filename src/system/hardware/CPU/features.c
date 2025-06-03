@@ -1,10 +1,8 @@
 #include <stdio.h>
 
-#include "cpu.h"
-#include "cpuid.h"
-
-#include "../../../utils/arguments.h"
-#include "../../../utils/terminal.h"
+#include <system/hardware/CPU/cpu.h>
+#include <utils/arguments.h>
+#include <utils/terminal.h>
 
 #define FEATURES_PER_LINE   4
 
