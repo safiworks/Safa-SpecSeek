@@ -6,41 +6,29 @@
 #include "../../../utils/arguments.h"
 #include "../../../utils/terminal.h"
 
-/*
-    A lot of the code here is not archetecture specific, anything that is has been placed in {oem_name}/microarch.h 
-    because really all that was vendor platform specific was the microarchetecutre nameing scheme and it was too large
-    to realistically have here. 
-*/
-
-
 /// @brief Build the CPU information by populating a cpu_t struct
 /// @return cpu_t CPU info structure.
-cpu_t init_cpu(){
-    // Construct
+cpu_t init_cpu() {
     cpu_t cpu;
     cpu.name = cpu_get_name();
-    cpu.model = cpu_get_model();                    // this should be the model + the extended model as per AMD and Intel docs
-    cpu.ext_model = cpu_get_extended_model();       // this is the extended model on its own
-    cpu.family = cpu_get_family();
-    cpu.vendor = cpu_get_vendor();                  // this MUST be accuratly populated or it falls apart at arch specific code
+    cpu.model = cpu_get_full_model();              // CPU Model (base + ext)
+    cpu.base_model = cpu_get_base_model();         // Raw Base Model
+    cpu.ext_model = cpu_get_extended_model();      // Raw extended model
+    cpu.family = cpu_get_family();                 // Full family
+    cpu.vendor = cpu_get_vendor();                 // Critical for arch specific lookups
     cpu.revision = cpu_get_revision();
-
-    // Return Value
     return cpu;
 }
 
 /// @brief Also known as the CPU Brand String
-/// @return CPU Name e.g. Ryzen 5 9600x 6 Core Processor
-const char* cpu_get_name(){
-    static char cpu_brand_string[49];           // [CPU_BRAND]
+const char* cpu_get_name() {
+    static char cpu_brand_string[49];
     unsigned int chunks[12];
 
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < 3; i++) {
         unsigned int eax, ebx, ecx, edx;
         cpuid(0x80000002 + i, 0, &eax, &ebx, &ecx, &edx);
-
-        IF_VERBOSE(3){ PRINT_REGISTER_VALUES() }
-
+        IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
         chunks[i * 4 + 0] = eax;
         chunks[i * 4 + 1] = ebx;
         chunks[i * 4 + 2] = ecx;
@@ -52,67 +40,43 @@ const char* cpu_get_name(){
     return cpu_brand_string;
 }
 
-/// @brief Uses the CPUID function to return a text buffer containing the CPU Vendor
-/// @return character array
-const char* cpu_get_vendor(){
-    static char vendor_string[13];              // [VENDOR_STRING (12 bytes)] + [NT(1 byte)]
+/// @brief Gets the CPU vendor string
+const char* cpu_get_vendor() {
+    static char vendor_string[13];
     unsigned int eax, ebx, ecx, edx;
     cpuid(0, 0, &eax, &ebx, &ecx, &edx);
-
-    IF_VERBOSE(3){ PRINT_REGISTER_VALUES() }
+    IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
 
     memcpy(vendor_string + 0, &ebx, 4);
     memcpy(vendor_string + 4, &edx, 4);
     memcpy(vendor_string + 8, &ecx, 4);
     vendor_string[12] = '\0';
-
     return vendor_string;
 }
 
-/// @brief get the CPU model ID leaf 1, 0
-/// @return unsigned int
-unsigned int cpu_get_model() {
+/// @brief Returns the raw base model field (not display model)
+unsigned int cpu_get_base_model() {
     unsigned int eax, ebx, ecx, edx;
     cpuid(1, 0, &eax, &ebx, &ecx, &edx);
+    IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
 
-    // Variables from CPUID
-    unsigned int base_family = (eax >> 8) & 0xF;
-    unsigned int ext_family = (eax >> 20) & 0xFF;
-    unsigned int base_model = (eax >> 4) & 0xF;
-    unsigned int ext_model = (eax >> 16) & 0xF;
-
-    // construct the family value because we need it later
-    // to get the model
-    unsigned int family = base_family;
-    if (base_family == 0xF) { family += ext_family; }
-
-    // construct model, if the family is 6 or 0xF then we combine the
-    // we shift the ext_model bits left and combine them with base_model
-    // if the first condition isnt met then model is just the base model
-    unsigned int model;
-    if (family == 6 || family == 0xF) {
-        model = (ext_model << 4) | base_model;
-    } else {
-        model = base_model;
-    }
-
-    return model;
+    return (eax >> 4) & 0xF;  // Base model
 }
 
-
-/// @brief Gets the extended model number of the CPU, this isnt really that useful
-/// @return unsigned int full model
-unsigned int cpu_get_extended_model(){
+/// @brief Returns extended model field
+unsigned int cpu_get_extended_model() {
     unsigned int eax, ebx, ecx, edx;
     cpuid(1, 0, &eax, &ebx, &ecx, &edx);
-    return (eax >> 16) & 0xF;  // Extended Model only (4 bits)
+    IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
+
+    return (eax >> 16) & 0xF;
 }
 
-/// @brief Gets the CPU family ID combining extended and base family
-/// @return unsigned int full family number
+/// @brief Gets the CPU family (combines extended if needed)
 unsigned int cpu_get_family() {
     unsigned int eax, ebx, ecx, edx;
     cpuid(1, 0, &eax, &ebx, &ecx, &edx);
+    IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
 
     unsigned int base_family = (eax >> 8) & 0xF;
     unsigned int ext_family = (eax >> 20) & 0xFF;
@@ -124,10 +88,27 @@ unsigned int cpu_get_family() {
     }
 }
 
-/// @brief Gets the current CPU revision (stepping)
-/// @return unsigned int stepping number
-unsigned int cpu_get_revision(){
+/// @brief Returns the final Model based on CPUID
+unsigned int cpu_get_full_model() {
     unsigned int eax, ebx, ecx, edx;
     cpuid(1, 0, &eax, &ebx, &ecx, &edx);
+    IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
+
+    unsigned int base_model = (eax >> 4) & 0xF;
+    unsigned int ext_model = (eax >> 16) & 0xF;
+    unsigned int base_family = (eax >> 8) & 0xF;
+
+    if (base_family == 0x6 || base_family == 0xF) {
+        return (ext_model << 4) | base_model;
+    } else {
+        return base_model;
+    }
+}
+
+/// @brief Gets the stepping/revision value
+unsigned int cpu_get_revision() {
+    unsigned int eax, ebx, ecx, edx;
+    cpuid(1, 0, &eax, &ebx, &ecx, &edx);
+    IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
     return eax & 0xF;
 }

@@ -44,6 +44,7 @@ void cpu_info(cpu_t cpu){
 
         ASCII_DIVIDER_SMALL("OEM Info", RED);
         printf("%sCPU Model:\t%s0x%X \t(%u)\n", BWHITE, RED, cpu.model, cpu.model);
+        printf("%sCPU BaseModel:\t%s0x%X \t(%u)\n", BWHITE, RED, cpu.base_model, cpu.base_model);
         printf("%sCPU ExtModel:\t%s0x%X \t(%u)\n", BWHITE, RED, cpu.ext_model, cpu.ext_model);
         printf("%sCPU Family:\t%s0x%X \t(%u)\n", BWHITE, RED, cpu.family, cpu.family);
         printf("%sCPU Revision:\t%s0x%X \t(%u)", BWHITE, RED, cpu.revision, cpu.revision);
@@ -54,10 +55,11 @@ void cpu_info(cpu_t cpu){
         ASCII_DIVIDER("INTEL CPU", CYAN);
         printf("%sCPU Name:\t%s%s\n", BWHITE, CYAN, cpu.name);
         printf("%sVendor String:\t%s%s\n", BWHITE, CYAN, cpu.vendor);
-        printf("%sCPU Microarchitecture:\t%s%s\n", BWHITE, CYAN, intel_cpu_get_microarch(cpu.family, cpu.model, cpu.ext_model));
+        printf("%sCPU Microarchitecture:\t%s%s\n", BWHITE, CYAN, intel_get_cpu_microarch(cpu.family, cpu_get_base_model(), cpu.ext_model, cpu.revision));
 
         ASCII_DIVIDER_SMALL("OEM Info", CYAN);
         printf("%sCPU Model:\t%s0x%X \t(%u)\n", BWHITE, CYAN, cpu.model, cpu.model);
+        printf("%sCPU BaseModel:\t%s0x%X \t(%u)\n", BWHITE, CYAN, cpu.base_model, cpu.base_model);
         printf("%sCPU ExtModel:\t%s0x%X \t(%u)\n", BWHITE, CYAN, cpu.ext_model, cpu.ext_model);
         printf("%sCPU Family:\t%s0x%X \t(%u)\n", BWHITE, CYAN, cpu.family, cpu.family);
         printf("%sCPU Revision:\t%s0x%X \t(%u)", BWHITE, CYAN, cpu.revision, cpu.revision);

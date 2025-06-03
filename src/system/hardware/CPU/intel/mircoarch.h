@@ -1,65 +1,205 @@
-// intel_cpu_models.h
-#ifndef INTEL_CPU_MODELS_H
-#define INTEL_CPU_MODELS_H
+#ifndef INTEL_MICROARCH_H
+#define INTEL_MICROARCH_H   1
 
-#include <stdint.h>
-#include <stdio.h>
-
-typedef struct {
-    unsigned int family;
-    unsigned int model;
-    unsigned int ext_model;
-    const char* microarch;
-} intel_cpu_microarch_t;
-
-
-/// @brief Intel CPU Microarch lookup table
-static const intel_cpu_microarch_t intel_cpu_table[] = {
-    {6, 0x3A, 0, "Ivy Bridge"},
-    {6, 0x3C, 0, "Haswell"},
-    {6, 0x3D, 0, "Broadwell"},
-    {6, 0x3F, 0, "Broadwell EP"},
-    {6, 0x45, 0, "Haswell"},
-    {6, 0x46, 0, "Haswell"},
-    {6, 0x4E, 0, "Skylake"},
-    {6, 0x4F, 0, "Broadwell EP+"},
-    {6, 0x5E, 0, "Cannon Lake"},
-    {6, 0x6A, 0, "Skylake-X"},
-    {6, 0x6C, 0, "Skylake-X"},
-    {6, 0x7D, 0, "Ice Lake"},
-    {6, 0x7E, 0, "Ice Lake"},
-    {6, 0x8E, 0, "Kaby Lake"},
-    {6, 0x8F, 0, "Coffee Lake"},
-    {6, 0x9E, 0, "Coffee Lake"},
-    {6, 0xA5, 0, "Comet Lake"},
-    {6, 0xA6, 0, "Comet Lake"},
-    {6, 0xA7, 0, "Alder Lake"},
-    {6, 0xAF, 0, "Alder Lake"},
-    {6, 0xBE, 0, "Alder Lake"},
-    {6, 0xBF, 0, "Raptor Lake"},
-    {6, 0xB7, 0, "Rocket Lake"},
-    {6, 0xB8, 0, "Rocket Lake"},
-};
-
-static const size_t intel_cpu_table_size = sizeof(intel_cpu_table) / sizeof(intel_cpu_microarch_t);
-
-// it gets better about here to be fair
-
-/// @brief returns the name of the microarch from the lookup table
-/// @param family cpu family
-/// @param model full model tag
-/// @param ext_model Extended Model on its own
-/// @return 
-static const char* intel_cpu_get_microarch(unsigned int family, unsigned int model, unsigned int ext_model) {
-    for (size_t i = 0; i < intel_cpu_table_size; i++) {
-        const intel_cpu_microarch_t* entry = &intel_cpu_table[i];
-        if (entry->family == family &&
-            entry->model == model &&
-            (entry->ext_model == 0 || entry->ext_model == ext_model)) {
-            return entry->microarch;
-        }
+/// @brief get the Micro archetecture for the Current CPU [INTEL ONLY]
+/// @param family CPU Family Value
+/// @param model the CPUs BASE model
+/// @param ext_model the CPUs Extended Model
+/// @param stepping revision?
+/// @return MicroArchetecture string.
+const char* intel_get_cpu_microarch(unsigned int family,
+    unsigned int model,
+    unsigned int ext_model,
+    unsigned int stepping){
+    switch (family){
+        case 0x4:
+            return "Intel 486";
+        case 0x5:
+            switch (model){
+                case 0x01 ... 0x08:
+                    return "P5";
+                case 0x09 ... 0x0A:
+                    return "Lakemont";
+                default:
+                    break;
+            }
+            break;
+        case 0x6:
+            switch (model){
+                case 0x1 ... 0x8:
+                    if (model == 0x5 && ext_model == 0x0) return "P6";
+                    if (model == 0x5 && ext_model == 0x1) return "Pentium M";
+                    if (model == 0x5 && ext_model == 0x2) return "Westmere";
+                    if (model == 0x5 && ext_model == 0x4) return "Haswell";
+                    if (model == 0x5 && ext_model == 0x5 && stepping == 11) return "Cooper Lake";
+                    if (model == 0x5 && ext_model == 0x5 &&
+                        (stepping == 5 || stepping == 6 || stepping == 7)) return "Cascade Lake"; 
+                    if (model == 0x5 && ext_model == 0x5) return "Skylake";                   
+                    if (model == 0x5 && ext_model == 0xA) return "Comet Lake";
+                    if (model == 0x5 && ext_model == 0xB) return "Arrow Lake";
+                    if (model == 0x5 && ext_model == 0xC) return "Arrow Lake";
+                    if (model == 0x6 && ext_model == 0x1) return "Core";
+                    if (model == 0x6 && ext_model == 0x4) return "Haswell";
+                    if (model == 0x6 && ext_model == 0x5) return "Broadwell (EP +)";
+                    if (model == 0x6 && ext_model == 0x6) return "Cannon Lake";
+                    if (model == 0x6 && ext_model == 0xA) return "Comet Lake";
+                    if (model == 0x6 && ext_model == 0xC) return "Arrow Lake";
+                    if (model == 0x7 && ext_model == 0x1) return "Penryn";
+                    if (model == 0x7 && ext_model == 0x4) return "Broadwell";
+                    if (model == 0x7 && ext_model == 0x9) return "Alder Lake";
+                    if (model == 0x7 && ext_model == 0xA) return "Rocket Lake";
+                    if (model == 0x7 && ext_model == 0xB) return "Raptor Lake or Barlett Lake";
+                    break;
+                case 0xA:
+                    switch (ext_model){
+                        case 0x0:
+                            return "P6";
+                        case 0x1:
+                            return "Nehalem";
+                        case 0x2:
+                            return "Sandy Bridge";
+                        case 0x3:
+                            return "Ivy Bridge";
+                        case 0x6:
+                            return "Ice Lake";
+                        case 0x9:
+                            return "Alder Lake";
+                        case 0xA:
+                            return "Meteor Lake";
+                        case 0xB:
+                            return "Raptor Lake or Barlett Lake";
+                        default:
+                            break;
+                    }
+                    break;
+                case 0xB:
+                    switch (ext_model){
+                        case 0x0:
+                            return "P6";
+                        case 0xA:
+                            return "Meteor Lake";
+                        default:
+                            break;
+                    }
+                    break;
+                case 0x9:
+                case 0xC:
+                    switch (ext_model){
+                        case 0x3:
+                            return "Haswell";
+                        case 0x2:
+                            return "Westmere";
+                        case 0x6:
+                            return "Ice Lake";
+                        case 0x8:
+                            return "Tiger Lake";
+                        case 0xA:
+                            return "Meteor Lake";
+                        case 0xB:
+                            return "Lunar Lake";
+                        case 0xC:
+                            return "Panther Lake";
+                        default:
+                            break;
+                    }
+                    break;
+                case 0xD:
+                    switch (ext_model){
+                        case 0x0:
+                            return "Modified Pentium M";
+                        case 0x1:
+                            return "Penryn";
+                        case 0x2:
+                            return "Sandy Bridge";
+                        case 0x3:
+                            return "Broadwell";
+                        case 0x7:
+                            return "Ice Lake";
+                        case 0x8:
+                            return "Tiger Lake";
+                        case 0xA:
+                            return "Granite Rapids";
+                        case 0xB:
+                            return "Lunar Lake";
+                        case 0xC:
+                            return "Wildcat Lake";
+                        case 0xD:
+                            return "Clearwater Forest";
+                        default:
+                            break;
+                    }
+                    break;
+                case 0xE:
+                    switch (ext_model){
+                        case 0x0:
+                            return "Modified Pentium M";
+                        case 0x1:
+                        case 0x2:
+                            return "Nehalem";
+                        case 0x3:
+                            return "Ivy Bridge";
+                        case 0x4:
+                        case 0x5:
+                            return "Skylake";
+                        case 0x7:
+                            return "Ice Lake";
+                        case 0x8:
+                            if (stepping == 9) return "Amber Lake";
+                            if (stepping == 10) return "Coffee Lake";
+                            if (stepping == 11 || stepping == 12) return "Whiskey Lake";
+                            return "Kaby Lake";
+                        case 0x9:
+                            return "Kaby Lake or Coffee Lake";
+                        case 0xA:
+                            return "Granite Rapids";
+                        case 0xB:
+                            return "Raptor Lake or Barlett Lake";
+                        default:
+                            break;
+                    }
+                    break;
+                case 0xF:
+                    switch (ext_model){
+                        case 0x0:
+                            return "Core";
+                        case 0x1:
+                            return "Nehalem";
+                        case 0x2:
+                            return "Westmere";
+                        case 0x3:
+                            return "Haswell";
+                        case 0x4:
+                            return "Broadwell";
+                        case 0x8:
+                            return "Sapphire Rapids";
+                        case 0xA:
+                            return "Sierra Forest";
+                        case 0xC:
+                            return "Emerald Rapids";
+                        case 0xB:
+                            return "Raptor Lake or Barlett Lake";
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 0xF:
+            switch (model){
+                case 0x1 ... 0x4:
+                    return "Netburst";
+                case 0x6:
+                    return "Modified Pentium M";
+                default:
+                    break;
+            }
+            break;
+        default:
+            return "Unknown Intel Microarch";
     }
-    return "Unknown CPU (Intel)";
+    return "Unknown Intel Microarch";
 }
 
 #endif

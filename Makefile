@@ -103,11 +103,14 @@ $(WIN_OBJ_DIR_64)/%.win.o: src/%.c
 #
 # Run targets (Linux only)
 #
-run_32: $(LINUX_TARGET_32)
-	@./$(GCC_BIN_DIR_32)/specseek
+run: $(LINUX_TARGET_64)
+	@./$(GCC_BIN_DIR_64)/$(LINUX_TARGET_64)
 
-run_64: $(LINUX_TARGET_64)
-	@./$(GCC_BIN_DIR_64)/specseek
+#
+# small debug target that starts the program as verbose level 3
+#
+debug: $(LINUX_TARGET_64)
+	@./$(GCC_BIN_DIR_64)/$(LINUX_TARGET_64) --verbose 3
 
 #
 # Clean
@@ -115,4 +118,4 @@ run_64: $(LINUX_TARGET_64)
 clean:
 	rm -rf bin
 
-.PHONY: all clean run_32 run_64
+.PHONY: all clean run debug
