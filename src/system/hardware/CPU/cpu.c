@@ -7,7 +7,7 @@
 
 /// @brief Build the CPU information by populating a cpu_t struct
 /// @return cpu_t CPU info structure.
-cpu_t init_cpu() {
+cpu_t init_cpu(void) {
     cpu_t cpu;
     cpu.name = cpu_get_name();
     cpu.model = cpu_get_full_model();              // CPU Model (base + ext)

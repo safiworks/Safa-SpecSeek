@@ -18,7 +18,7 @@ int main(int argc, const char** argv){
     ASCII_DIVIDER("Spec Seek by Mellurboo", BLUE);
     printf("%sCompiled with GCC Version %d.%d.%d\n", BLUE,__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
     printf("%sCompiled at: %s : %s\n", BLUE, __DATE__, __TIME__);
-    if (arguments.verbose != 0) printf("%sRunning in Verbose Mode {%d}\n", BLUE, arguments.verbose);
+    if (get_arguments().verbose) printf("%sRunning in Verbose Mode {%d}\n", BLUE, get_arguments().verbose);
 
     cpu_info(init_cpu());
 

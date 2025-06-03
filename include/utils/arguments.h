@@ -6,7 +6,7 @@
 #define _ARGUMENT_PUT_FEATURES_ON_NEWLINE "--features-on-newline"
 
 
-#define IF_VERBOSE(level) if (arguments.verbose >= (level))
+#define IF_VERBOSE(level) if (get_arguments().verbose >= (level))
 #define ARG_MATCH(x) if (strcmp(arg, x) == 0)
 
 typedef struct args{
@@ -14,13 +14,14 @@ typedef struct args{
     int put_features_on_newline;
 }args_t;
 
-
-extern args_t arguments;
-
 /// @brief changes the argument struct and applies settings based on arguments here
 /// @param argc argument count (from main)
 /// @param argv argument vector (from main)
 /// @param args argument structure reference
-void construct_arguments(int argc, const char** argv);
+args_t construct_arguments(int argc, const char** argv);
+
+/// @brief 
+/// @return 
+args_t get_arguments(void);
 
 #endif

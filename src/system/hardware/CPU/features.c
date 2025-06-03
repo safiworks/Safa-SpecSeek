@@ -16,7 +16,7 @@ void cpu_print_feature(int verbosity, int status, const char* feature_name){
         feature_count++;
 
         printf("%s%s: %s%s%s;\t\t", BWHITE,feature_name, status != 0 ? GREEN : RED, status != 0 ? "TRUE" : "FALSE", RESET);
-        if (arguments.put_features_on_newline || feature_count % FEATURES_PER_LINE == 0) { printf("\n"); }
+        if (get_arguments().put_features_on_newline || feature_count % FEATURES_PER_LINE == 0) { printf("\n"); }
     }
 }
 
