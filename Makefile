@@ -5,12 +5,13 @@ LINUX_TARGET_32 = specseek_32
 LINUX_TARGET_64 = specseek_64
 WINDOWS_TARGET_32 = specseek_32.exe
 WINDOWS_TARGET_64 = specseek_64.exe
+MINOS_TARGET_64 = specseek_minos_64
 
 #
 # Compilers for Differing Targets
 #
-GCC_32 = gcc -m32
-GCC_64 = gcc -m64
+GCC = gcc
+CC ?= gcc
 
 MINGW_32 = i686-w64-mingw32-gcc
 MINGW_64 = x86_64-w64-mingw32-gcc
@@ -33,6 +34,9 @@ WIN_BIN_DIR_64 = bin/win/64
 WIN_OBJ_DIR_32 = $(WIN_BIN_DIR_32)/obj
 WIN_OBJ_DIR_64 = $(WIN_BIN_DIR_64)/obj
 
+MINOS_BIN_DIR_64 = bin/minos/64
+MINOS_OBJ_DIR_64 = $(MINOS_BIN_DIR_64)/obj
+
 #
 # Detect Source files in Code, this is very broad
 # and will just compile anything it finds
@@ -48,24 +52,26 @@ GCC_OBJS_64 = $(patsubst src/%.c, $(GCC_OBJ_DIR_64)/%.gcc.o, $(SRCS))
 WIN_OBJS_32 = $(patsubst src/%.c, $(WIN_OBJ_DIR_32)/%.win.o, $(SRCS))
 WIN_OBJS_64 = $(patsubst src/%.c, $(WIN_OBJ_DIR_64)/%.win.o, $(SRCS))
 
+MINOS_OBJS_64 = $(patsubst src/%.c, $(MINOS_OBJ_DIR_64)/%.minos.o, $(SRCS))
+
 #
 # Default Command (no args) Build all 4 binaries
 #
-all: $(LINUX_TARGET_32) $(LINUX_TARGET_64) $(WINDOWS_TARGET_32) $(WINDOWS_TARGET_64)
+all: $(LINUX_TARGET_32) $(LINUX_TARGET_64) $(WINDOWS_TARGET_32) $(WINDOWS_TARGET_64) $(MINOS_TARGET_64)
 
 #
 # Linux 32-bit build
 #
 $(LINUX_TARGET_32): $(GCC_OBJS_32)
 	@mkdir -p $(GCC_BIN_DIR_32)
-	$(GCC_32) $(COMMON_CFLAGS) -o $(GCC_BIN_DIR_32)/$(LINUX_TARGET_32) $^
+	$(GCC) $(COMMON_CFLAGS) -m32 -o $(GCC_BIN_DIR_32)/$(LINUX_TARGET_32) $^
 
 #
 # Linux 64-bit build
 #
 $(LINUX_TARGET_64): $(GCC_OBJS_64)
 	@mkdir -p $(GCC_BIN_DIR_64)
-	$(GCC_64) $(COMMON_CFLAGS) -o $(GCC_BIN_DIR_64)/$(LINUX_TARGET_64) $^
+	$(GCC) $(COMMON_CFLAGS) -m64 -o $(GCC_BIN_DIR_64)/$(LINUX_TARGET_64) $^
 
 #
 # Windows 32-bit build
@@ -82,15 +88,22 @@ $(WINDOWS_TARGET_64): $(WIN_OBJS_64)
 	$(MINGW_64) $(COMMON_CFLAGS) -o $(WIN_BIN_DIR_64)/$(WINDOWS_TARGET_64) $^
 
 #
+# MinOS 64-bit build
+#
+$(MINOS_TARGET_64): $(MINOS_OBJS_64)
+	@mkdir -p $(MINOS_BIN_DIR_64)
+	$(CC) $(COMMON_CFLAGS) -o $(MINOS_BIN_DIR_64)/$(MINOS_TARGET_64) $^
+
+#
 # Object build rules per architecture
 #
 $(GCC_OBJ_DIR_32)/%.gcc.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(GCC_32) $(COMMON_CFLAGS) -c $< -o $@
+	$(GCC) $(COMMON_CFLAGS) -m32 -c $< -o $@
 
 $(GCC_OBJ_DIR_64)/%.gcc.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(GCC_64) $(COMMON_CFLAGS) -c $< -o $@
+	$(GCC) $(COMMON_CFLAGS) -m64 -c $< -o $@
 
 $(WIN_OBJ_DIR_32)/%.win.o: src/%.c
 	@mkdir -p $(dir $@)
@@ -100,8 +113,12 @@ $(WIN_OBJ_DIR_64)/%.win.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(MINGW_64) $(COMMON_CFLAGS) -c $< -o $@
 
+$(MINOS_OBJ_DIR_64)/%.minos.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(COMMON_CFLAGS) -c $< -o $@
+
 #
-# Run targets (Linux only)
+# Run targets (Linux only), these run scripts suck ass ill supliment them with shell later
 #
 run: $(LINUX_TARGET_64)
 	@./$(GCC_BIN_DIR_64)/$(LINUX_TARGET_64)

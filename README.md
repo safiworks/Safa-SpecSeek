@@ -10,18 +10,23 @@ I would love to have anyone contribute to fixing bugs or extending feature suppo
 **When contributing please try follow the naming standard used already, and do not add repeat functionality. please keep a simple codebase as a priority.**
 ## Build & Run from Source
 
-Install all of the prerequisites using your package manager of choice.
-``` bash
-sudo apt install gcc make gcc-mingw-w64-x86-64 gcc-multilib libc6-dev-i386
-```
-to build a 32-bit ELF executable use the following command
+to build the ELF executables use the following command
 ``` bash
 make
 ```
-however to create a 32-bit Windows Executable use the following command
+however to create the Windows Executables use the following command
 ``` bash
 make windows
 ```
+
+You can add specseek to MinOS from source by cloning MinOS
+```
+git clone https://github.com/Dcraftbg/MinOS.git
+```
+
+and then downloading the [MinOS Specseek Installer (for source)](https://github.com/Mellurboo/SpecSeek/blob/620c6199ec021c5a2d4f976964307b47c0dabd6c/install_specseek.sh)
+
+place the script at the root of MinOS and run it. and thats it, you are done!
 
 ## Documentation
 Documentation is held within the github wiki [here](https://github.com/Mellurboo/SpecSeek/wiki). I will try to keep up with it but if anything is missing feel free to raise an issue about it. However the code is commented with detailed comments so I suspect you will be able to fill in the blanks.
