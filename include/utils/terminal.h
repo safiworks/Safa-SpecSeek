@@ -6,7 +6,7 @@
 /*
     GCC Colour Escape Codes (More Portable)
 */
-#if defined(__GNUC__) && !defined(__MINGW32__) && !defined(_MINOS)
+#if defined(__GNUC__) && !defined(__MINGW32__)
 #define BLACK   "\e[0;30m"
 #define RED     "\e[0;31m"
 #define GREEN   "\e[0;32m"
@@ -54,30 +54,6 @@
 #define BWHITE   "\x1b[1;37m"
 
 #define RESET    "\x1b[0m"
-#endif
-
-/*
-    GCC Colour Escape Codes (More Portable)
-*/
-#if defined(_MINOS)
-#define BLACK   "\033[30m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[94m"
-#define MAGENTA "\033[35m"
-#define CYAN    "\033[36m"
-#define WHITE   "\033[37m"
-
-#define BBLACK   "\033[30m"
-#define BRED     "\033[31m"
-#define BGREEN   "\033[32m"
-#define BYELLOW  "\033[33m"
-#define BBLUE    "\033[34m"
-#define BMAGENTA "\033[35m"
-#define BCYAN    "\033[36m"
-#define BWHITE   "\033[37m"
-#define RESET    "\033[0m"
 #endif
 
 #endif
