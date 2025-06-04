@@ -12,5 +12,5 @@ int main(int argc, char** argv) {
         nob_log(NOB_ERROR, "Missing $MINOSROOT");
         return 1;
     }
-    if(!copy_file("bin/specseek_64", temp_sprintf("%s/initrd/user/specseek", minos_root))) return 1;
+    if(!copy_file("bin/minos/64/specseek_minos_64", temp_sprintf("%s/initrd/user/specseek", minos_root))) return 1;
 }
