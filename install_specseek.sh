@@ -5,7 +5,7 @@ TARGET_DIR="user/specseek"
 NOB_PROJECTS="user/nob.c"
 
 mkdir -p "$TARGET_DIR"
-git clone --branch MinOS-Port "$REPO_URL" "$TARGET_DIR"
+git clone "$REPO_URL" "$TARGET_DIR"
 
 if [ $? -eq 0 ]; then
     echo "specseek has cloned into $TARGET_DIR"
