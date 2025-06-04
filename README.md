@@ -10,6 +10,15 @@ I would love to have anyone contribute to fixing bugs or extending feature suppo
 **When contributing please try follow the naming standard used already, and do not add repeat functionality. please keep a simple codebase as a priority.**
 ## Build & Run from Source
 
+to build the ELF executables use the following command
+``` bash
+make
+```
+however to create the Windows Executables use the following command
+``` bash
+make windows
+```
+
 You can add specseek to MinOS from source by cloning MinOS
 ```
 git clone https://github.com/Dcraftbg/MinOS.git
