@@ -1,13 +1,12 @@
 #include <stdlib.h>
 #include <utils/arguments.h>
 
-args_t arguments;
+static args_t arguments;
 
 /// @brief changes the argument struct and applies settings based on arguments here
 /// @param argc argument count (from main)
 /// @param argv argument vector (from main)
-args_t construct_arguments(int argc, const char** argv){
-
+void construct_arguments(int argc, const char** argv){
     for (int i = 1; i < argc; ++i){
         const char* arg = argv[i];
 
@@ -21,11 +20,9 @@ args_t construct_arguments(int argc, const char** argv){
 
         ARG_MATCH(_ARGUMENT_PUT_FEATURES_ON_NEWLINE) { arguments.put_features_on_newline = 1; }
     }
-
-    return arguments;
 }
 
-args_t get_arguments(){
+args_t get_arguments(void){
     return arguments;
 }
 

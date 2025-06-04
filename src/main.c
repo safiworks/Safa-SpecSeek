@@ -13,7 +13,6 @@
 /// @param argv argument vector
 int main(int argc, const char** argv){
     construct_arguments(argc, argv);
-
     CLEAR_SCREEN();
     ASCII_DIVIDER("Spec Seek by Mellurboo", BLUE);
     printf("%sCompiled with GCC Version %d.%d.%d\n", BLUE,__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
