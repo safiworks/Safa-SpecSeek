@@ -6,7 +6,7 @@
 /*
     GCC Colour Escape Codes (More Portable)
 */
-#if defined(__GNUC__) && !defined(__MINGW32__)
+#if defined(__GNUC__) && !defined(__MINGW32__) && !defined(_MINOS)
 #define BLACK   "\e[0;30m"
 #define RED     "\e[0;31m"
 #define GREEN   "\e[0;32m"

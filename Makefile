@@ -10,6 +10,7 @@ MINOS_TARGET_64 = specseek_minos_64
 #
 # Compilers for Differing Targets
 #
+GCC ?= gcc
 CC ?= gcc
 
 MINGW_32 = i686-w64-mingw32-gcc
@@ -17,8 +18,14 @@ MINGW_64 = x86_64-w64-mingw32-gcc
 
 #
 # Flag Options for Compilers
-# 
+#
+CFLAGS ?=
 COMMON_CFLAGS = -Wall -Wextra -Werror -Wno-unused-parameter -O2 -I include
+
+#
+# Runtime arguments
+#
+RUN_ARGS ?=
 
 #
 # Output directories as variables
@@ -63,70 +70,62 @@ all: $(LINUX_TARGET_32) $(LINUX_TARGET_64) $(WINDOWS_TARGET_32) $(WINDOWS_TARGET
 #
 $(LINUX_TARGET_32): $(GCC_OBJS_32)
 	@mkdir -p $(GCC_BIN_DIR_32)
-	$(CC) $(COMMON_CFLAGS) -m32 -o $(GCC_BIN_DIR_32)/$(LINUX_TARGET_32) $^
+	$(GCC) $(COMMON_CFLAGS) $(CFLAGS) -m32 -o $(GCC_BIN_DIR_32)/$(LINUX_TARGET_32) $^
 
 #
 # Linux 64-bit build
 #
 $(LINUX_TARGET_64): $(GCC_OBJS_64)
 	@mkdir -p $(GCC_BIN_DIR_64)
-	$(CC) $(COMMON_CFLAGS) -m64 -o $(GCC_BIN_DIR_64)/$(LINUX_TARGET_64) $^
+	$(GCC) $(COMMON_CFLAGS) $(CFLAGS) -m64 -o $(GCC_BIN_DIR_64)/$(LINUX_TARGET_64) $^
 
 #
 # Windows 32-bit build
 #
 $(WINDOWS_TARGET_32): $(WIN_OBJS_32)
 	@mkdir -p $(WIN_BIN_DIR_32)
-	$(MINGW_32) $(COMMON_CFLAGS) -o $(WIN_BIN_DIR_32)/$(WINDOWS_TARGET_32) $^
+	$(MINGW_32) $(COMMON_CFLAGS) $(CFLAGS) -o $(WIN_BIN_DIR_32)/$(WINDOWS_TARGET_32) $^
 
 #
 # Windows 64-bit build
 #
 $(WINDOWS_TARGET_64): $(WIN_OBJS_64)
 	@mkdir -p $(WIN_BIN_DIR_64)
-	$(MINGW_64) $(COMMON_CFLAGS) -o $(WIN_BIN_DIR_64)/$(WINDOWS_TARGET_64) $^
+	$(MINGW_64) $(COMMON_CFLAGS) $(CFLAGS) -o $(WIN_BIN_DIR_64)/$(WINDOWS_TARGET_64) $^
 
 #
 # MinOS 64-bit build
 #
 $(MINOS_TARGET_64): $(MINOS_OBJS_64)
 	@mkdir -p $(MINOS_BIN_DIR_64)
-	$(CC) $(COMMON_CFLAGS) -o $(MINOS_BIN_DIR_64)/$(MINOS_TARGET_64) $^
+	$(CC) $(COMMON_CFLAGS) $(CFLAGS) -o $(MINOS_BIN_DIR_64)/$(MINOS_TARGET_64) $^
 
 #
 # Object build rules per architecture
 #
 $(GCC_OBJ_DIR_32)/%.gcc.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(COMMON_CFLAGS) -m32 -c $< -o $@
+	$(GCC) $(COMMON_CFLAGS) $(CFLAGS) -m32 -c $< -o $@
 
 $(GCC_OBJ_DIR_64)/%.gcc.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(COMMON_CFLAGS) -m64 -c $< -o $@
+	$(GCC) $(COMMON_CFLAGS) $(CFLAGS) -m64 -c $< -o $@
 
 $(WIN_OBJ_DIR_32)/%.win.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(MINGW_32) $(COMMON_CFLAGS) -c $< -o $@
+	$(MINGW_32) $(COMMON_CFLAGS) $(CFLAGS) -c $< -o $@
 
 $(WIN_OBJ_DIR_64)/%.win.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(MINGW_64) $(COMMON_CFLAGS) -c $< -o $@
+	$(MINGW_64) $(COMMON_CFLAGS) $(CFLAGS) -c $< -o $@
 
 $(MINOS_OBJ_DIR_64)/%.minos.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(COMMON_CFLAGS) -c $< -o $@
+	$(CC) $(COMMON_CFLAGS) $(CFLAGS) -c $< -o $@
 
-#
-# Run targets (Linux only), these run scripts suck ass ill supliment them with shell later
-#
-run: $(LINUX_TARGET_64)
-	@./$(GCC_BIN_DIR_64)/$(LINUX_TARGET_64)
 
-#
-# small debug target that starts the program as verbose level 3
-#
-debug: $(LINUX_TARGET_64)
-	@./$(GCC_BIN_DIR_64)/$(LINUX_TARGET_64) --verbose 3
+run: $(LINUX_TARGET_32)
+	@./$(GCC_BIN_DIR_32)/$(LINUX_TARGET_32) $(RUN_ARGS)
 
 #
 # Clean
