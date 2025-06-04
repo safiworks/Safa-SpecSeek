@@ -10,7 +10,6 @@ MINOS_TARGET_64 = specseek_minos_64
 #
 # Compilers for Differing Targets
 #
-GCC = gcc
 CC ?= gcc
 
 MINGW_32 = i686-w64-mingw32-gcc
@@ -64,14 +63,14 @@ all: $(LINUX_TARGET_32) $(LINUX_TARGET_64) $(WINDOWS_TARGET_32) $(WINDOWS_TARGET
 #
 $(LINUX_TARGET_32): $(GCC_OBJS_32)
 	@mkdir -p $(GCC_BIN_DIR_32)
-	$(GCC) $(COMMON_CFLAGS) -m32 -o $(GCC_BIN_DIR_32)/$(LINUX_TARGET_32) $^
+	$(CC) $(COMMON_CFLAGS) -m32 -o $(GCC_BIN_DIR_32)/$(LINUX_TARGET_32) $^
 
 #
 # Linux 64-bit build
 #
 $(LINUX_TARGET_64): $(GCC_OBJS_64)
 	@mkdir -p $(GCC_BIN_DIR_64)
-	$(GCC) $(COMMON_CFLAGS) -m64 -o $(GCC_BIN_DIR_64)/$(LINUX_TARGET_64) $^
+	$(CC) $(COMMON_CFLAGS) -m64 -o $(GCC_BIN_DIR_64)/$(LINUX_TARGET_64) $^
 
 #
 # Windows 32-bit build
@@ -99,11 +98,11 @@ $(MINOS_TARGET_64): $(MINOS_OBJS_64)
 #
 $(GCC_OBJ_DIR_32)/%.gcc.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(GCC) $(COMMON_CFLAGS) -m32 -c $< -o $@
+	$(CC) $(COMMON_CFLAGS) -m32 -c $< -o $@
 
 $(GCC_OBJ_DIR_64)/%.gcc.o: src/%.c
 	@mkdir -p $(dir $@)
-	$(GCC) $(COMMON_CFLAGS) -m64 -c $< -o $@
+	$(CC) $(COMMON_CFLAGS) -m64 -c $< -o $@
 
 $(WIN_OBJ_DIR_32)/%.win.o: src/%.c
 	@mkdir -p $(dir $@)
