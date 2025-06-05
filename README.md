@@ -19,11 +19,6 @@ however to create the Windows Executables use the following command
 make windows
 ```
 
-You can add specseek to MinOS from source by cloning MinOS
-```
-git clone https://github.com/Dcraftbg/MinOS.git
-```
-
 and then downloading the [MinOS Specseek Installer (for source)](https://github.com/Mellurboo/SpecSeek/blob/620c6199ec021c5a2d4f976964307b47c0dabd6c/install_specseek.sh)
 
 place the script at the root of MinOS and run it. and thats it, you are done!
