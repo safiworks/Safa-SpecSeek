@@ -4,8 +4,50 @@
 /// @param family CPU family
 /// @param model CPU model
 /// @return const char* string describing the microarchitecture
-const char* amd_cpu_get_microarch(unsigned int family, unsigned int model) {
+const char* amd_cpu_get_microarch(unsigned int family, unsigned int model, unsigned int ext_model) {
     switch(family){
+        case 0x05: return "K5";
+        case 0x06: return "K7";
+        case 0x0F: return "K8";
+        case 0x10: return "K10";
+        case 0x11: return "K10 + K8 Hybrid";
+        case 0x12: return "Llano";
+        case 0x14: return "Bobcat";
+        case 0x15:
+            switch (model){
+                case 0x01:
+                    return "Bulldozer";
+                case 0x00:
+                    switch (ext_model){
+                        case 0x00:
+                            return "Piledriver";
+                        case 0x03:
+                            return "Steamroller";
+                        case 0x06:
+                        case 0x07:
+                            return "Excavator";
+                        default:
+                            return "Unknown Family 21 Microarch";
+                    }
+                case 0x02:
+                case 0x03:
+                    return "Piledriver";
+                case 0x05:
+                    return "Excavator";
+                case 0x08:
+                    return "Steamroller";
+                default:
+                    return "Unknown Family 21 Microarch";
+            }
+        case 0x16:
+            switch (ext_model){
+                case 0x00:
+                    return "Jaguar";
+                case 0x03:
+                    return "Puma";
+                default:
+                    return "Unknown Family 22 Microarch";
+            }
         case 0x17:
             switch (model){
                 case 0x00 ... 0x2F:
@@ -19,6 +61,8 @@ const char* amd_cpu_get_microarch(unsigned int family, unsigned int model) {
                 default:
                     return "Unknown Zen/Zen+ Processor"; 
             }
+        case 0x18:
+            return "Zen Dhyana (AMD + Chengdu Haiguang)";
         case 0x19:
             switch (model){
                 case 0x00 ... 0x0F:

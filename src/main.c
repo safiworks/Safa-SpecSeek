@@ -38,7 +38,7 @@ void cpu_info(cpu_t cpu){
         ASCII_DIVIDER("AMD CPU", RED);
         printf("%sCPU Name:\t%s%s\n", BWHITE, RED, cpu.name);
         printf("%sVendor String:\t%s%s\n", BWHITE, RED, cpu.vendor);
-        printf("%sCPU Microarchitecture:\t%s%s\n", BWHITE, RED, amd_cpu_get_microarch(cpu.family, cpu.model));
+        printf("%sCPU Microarchitecture:\t%s%s\n", BWHITE, RED, amd_cpu_get_microarch(cpu.family, cpu.model, cpu.ext_model));
 
         ASCII_DIVIDER_SMALL("OEM Info", RED);
         printf("%sCPU Model:\t%s0x%X \t(%u)\n", BWHITE, RED, cpu.model, cpu.model);

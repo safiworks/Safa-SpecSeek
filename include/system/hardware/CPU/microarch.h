@@ -1,8 +1,9 @@
 /// @brief Returns the AMD microarchitecture name based on family and model, the Linux src code was huge for this
 /// @param family CPU family
 /// @param model CPU model
+/// @param ext_model CPU extended model number
 /// @return const char* string describing the microarchitecture
-const char* amd_cpu_get_microarch(unsigned int family, unsigned int model);
+const char* amd_cpu_get_microarch(unsigned int family, unsigned int model, unsigned int ext_model);
 
 /// @brief get the Micro archetecture for the Current CPU [INTEL ONLY]
 /// @param family CPU Family Value
