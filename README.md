@@ -21,10 +21,10 @@ make windows
 The makefile supports arguments like `CC` for your own GCC toolchain and `CFLAGS` to define compiler flags (they are appended with COMMON_FLAGS which you must change in the makefile. CFLAGS is simply adding flags)
 
 ## Exsisting Ports:
-Check out some of the exsisting ports for specseek;
-    [MinOS by Dcraft BG](https://github.com/Mellurboo/MinOS_SpecSeek)\
-    [TacOS by UnmappedStack](https://github.com/UnmappedStack/SpecSeek-forTacOS)\
-    [BananOS by Bananymous](https://github.com/Bananymous/banan-os)\
+Check out some of the exsisting ports for specseek;\
+    * [MinOS by Dcraft BG](https://github.com/Mellurboo/MinOS_SpecSeek)\
+    * [TacOS by UnmappedStack](https://github.com/UnmappedStack/SpecSeek-forTacOS)\
+    * [BananOS by Bananymous](https://github.com/Bananymous/banan-os)\
 Thanks to everyone who puts time into porting or contributing to specseek. I love seeing it all!
 
 ## Minimum Requirements
