@@ -25,7 +25,7 @@ const char* intel_get_cpu_microarch(unsigned int family,
             break;
         case 0x6:
             switch (model){
-                case 0x1 ... 0x8:
+                case 0x0 ... 0x8:
                     if (model == 0x5 && ext_model == 0x0) return "P6";
                     if (model == 0x5 && ext_model == 0x1) return "Pentium M";
                     if (model == 0x5 && ext_model == 0x2) return "Westmere";

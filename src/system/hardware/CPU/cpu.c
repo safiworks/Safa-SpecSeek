@@ -9,13 +9,15 @@
 /// @return cpu_t CPU info structure.
 cpu_t init_cpu(void) {
     cpu_t cpu;
-    cpu.name = cpu_get_name();
-    cpu.model = cpu_get_full_model();              // CPU Model (base + ext)
-    cpu.base_model = cpu_get_base_model();         // Raw Base Model
-    cpu.ext_model = cpu_get_extended_model();      // Raw extended model
-    cpu.family = cpu_get_family();                 // Full family
-    cpu.vendor = cpu_get_vendor();                 // Critical for arch specific lookups
-    cpu.revision = cpu_get_revision();
+    cpu.name        = cpu_get_name();
+    cpu.model       = cpu_get_full_model();
+    cpu.base_model  = cpu_get_base_model();
+    cpu.ext_model   = cpu_get_extended_model();
+    cpu.family      = cpu_get_family();
+    cpu.base_family = cpu_get_base_family();
+    cpu.ext_family  = cpu_get_extended_family();
+    cpu.vendor      = cpu_get_vendor();
+    cpu.revision    = cpu_get_revision();
     return cpu;
 }
 
@@ -77,14 +79,34 @@ unsigned int cpu_get_family() {
     cpuid(1, 0, &eax, &ebx, &ecx, &edx);
     IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
 
-    unsigned int base_family = (eax >> 8) & 0xF;
-    unsigned int ext_family = (eax >> 20) & 0xFF;
+    unsigned int base_family = cpu_get_base_family();
+    unsigned int ext_family = cpu_get_extended_family();
 
     if (base_family == 0xF) {
         return base_family + ext_family;
     } else {
         return base_family;
     }
+}
+
+/// @brief gets only the base family from the CPU
+/// @return base family int
+unsigned int cpu_get_base_family(){
+    unsigned int eax, ebx, ecx, edx;
+    cpuid(1, 0, &eax, &ebx, &ecx, &edx);
+    IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
+
+    return (eax >> 8) & 0xF; 
+}
+
+/// @brief gets only the extended family from the CPU
+/// @return extended family int
+unsigned int cpu_get_extended_family(){
+    unsigned int eax, ebx, ecx, edx;
+    cpuid(1, 0, &eax, &ebx, &ecx, &edx);
+    IF_VERBOSE(3) { PRINT_REGISTER_VALUES() }
+
+    return (eax >> 20) & 0xFF; 
 }
 
 /// @brief Returns the final Model based on CPUID

@@ -22,6 +22,8 @@ typedef struct cpu
     unsigned int base_model;
     unsigned int ext_model;
     unsigned int family;
+    unsigned int base_family;
+    unsigned int ext_family;
     unsigned int revision;
 }cpu_t;
 
@@ -79,6 +81,14 @@ unsigned int cpu_get_full_model();
 /// @brief Gets the CPU family ID combining extended and base family
 /// @return unsigned int full family number
 unsigned int cpu_get_family();
+
+/// @brief gets only the base family from the CPU
+/// @return base family int
+unsigned int cpu_get_base_family();
+
+/// @brief gets only the extended family from the CPU
+/// @return extended family int
+unsigned int cpu_get_extended_family();
 
 /// @brief Gets the current CPU revision (stepping)
 /// @return unsigned int stepping number

@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <unistd.h>
 #include <utils/arguments.h>
+#include <stdio.h>
 
 static args_t arguments;
 
@@ -17,8 +19,15 @@ void construct_arguments(int argc, const char** argv){
                 arguments.verbose = 1;
             }
         }
+        
+        ARG_MATCH(_ARGUMENT_NO_ANSI) { arguments.no_ansi = 1; }
 
         ARG_MATCH(_ARGUMENT_PUT_FEATURES_ON_NEWLINE) { arguments.put_features_on_newline = 1; }
+    }
+
+    // TTY check for pipe output purity. we do not want ansi codes there
+    if(!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)){
+        arguments.no_ansi = 1;
     }
 }
 

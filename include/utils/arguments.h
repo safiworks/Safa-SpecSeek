@@ -4,6 +4,7 @@
 
 #define _ARGUMENT_VERBOSE "--verbose"
 #define _ARGUMENT_PUT_FEATURES_ON_NEWLINE "--features-on-newline"
+#define _ARGUMENT_NO_ANSI "--no-ansi"
 
 
 #define IF_VERBOSE(level) if (get_arguments().verbose >= (level))
@@ -12,6 +13,7 @@
 typedef struct args{
     int verbose;
     int put_features_on_newline;
+    int no_ansi;
 }args_t;
 
 /// @brief changes the argument struct and applies settings based on arguments here
