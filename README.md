@@ -25,6 +25,7 @@ Check out some of the exsisting ports for specseek;\
     [MinOS by Dcraft BG](https://github.com/Mellurboo/MinOS_SpecSeek)\
     [TacOS by UnmappedStack](https://github.com/UnmappedStack/SpecSeek-forTacOS)\
     [BananOS by Bananymous](https://github.com/Bananymous/banan-os)\
+    [Stanix by Tayoky](https://github.com/tayoky/ports/blob/main/ports/specseek/specseek.ini)\
 Thanks to everyone who puts time into porting or contributing to specseek. I love seeing it all!
 
 ## Minimum Requirements
