@@ -5,11 +5,10 @@
 A soloution to finding everything there is to know about a computers specifications. all in one elegant location. **a great way to share your device specifications support and features**. not sure if your PC supports some functionality? Spec Peek will relay that to you.
 
 ## Contributing
-I would love to have anyone contribute to fixing bugs or extending feature support, please feel free to make a pull request, or even fork it! *with the licence in mind*.
+Contributions in any way are always welcome, if its porting to your own operating system or making a PR for me to review, I welcome all sorts of contributions and intergration. when porting I would appreciate it if your build script pulls directly from this repo to keep your build of specseek up to date as its still in active development.
 
 **When contributing please try follow the naming standard used already, and do not add repeat functionality. please keep a simple codebase as a priority.**
 ## Build & Run from Source
-
 to build the ELF executables use the following command
 ``` bash
 make
@@ -19,8 +18,15 @@ however to create the Windows Executables use the following command
 make windows
 ```
 
-## Documentation
-Documentation is held within the github wiki [here](https://github.com/Mellurboo/SpecSeek/wiki). I will try to keep up with it but if anything is missing feel free to raise an issue about it. However the code is commented with detailed comments so I suspect you will be able to fill in the blanks.
+The makefile supports arguments like `CC` for your own GCC toolchain and `CFLAGS` to define compiler flags (they are appended with COMMON_FLAGS which you must change in the makefile. CFLAGS is simply adding flags)
+
+## Exsisting Ports:
+Check out some of the exsisting ports for specseek;
+    - [MinOS by Dcraft BG](https://github.com/Mellurboo/MinOS_SpecSeek)
+    - [TacOS by UnmappedStack](https://github.com/UnmappedStack/SpecSeek-forTacOS)
+    - [BananOS by Bananymous](https://github.com/Bananymous/banan-os)
+Thanks to everyone who puts time into porting or contributing to specseek. I love seeing it all!
+
 ## Minimum Requirements
 Currently your CPU must be at least 32-bit and have the CPUID instruction.
 
@@ -29,8 +35,6 @@ Currently your CPU must be at least 32-bit and have the CPUID instruction.
 
 
 ## Appendix
-I am creating this project as a soloution to people not knowing their PC specifications, It will be a great way for novice users to find out everything they need to know compiled into a file (or other medium) and sent off to a technition, friend, buyer or that one family friend who claims to be able to fix your device.
-
-Cross-Platform support is a high priority not only making sure SpecSeek can be ran on most operating systems but also making sure it works on many archetectures on many different configurations hardware and software alike.
+SpecSeek is built as a soloution to the problem of people not knowing their hardware specs, which makes the lives of technitions harder. However specseek has grown within the community of OSDev, as a result keeping the code simple and portable is going to be and remain a number 1 priority.
 
 also sorry for the inconsistancy of how I comment, sometimes I feel /// is appropriate usually for the top of functions, sometimes I use // for comments in the function, if im writing a block of text ill use /* */ but sometimes I might use them interchangably. Feel free to change them.
