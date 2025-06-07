@@ -25,6 +25,10 @@ typedef struct cpu
     unsigned int base_family;
     unsigned int ext_family;
     unsigned int revision;
+
+    unsigned int logical_processors;
+    unsigned int physical_processors;
+    unsigned int threads_per_core;
 }cpu_t;
 
 /// @brief CPUID instruction wrapper that places results from the leaf and subleaf into respective locations
@@ -93,5 +97,9 @@ unsigned int cpu_get_extended_family();
 /// @brief Gets the current CPU revision (stepping)
 /// @return unsigned int stepping number
 unsigned int cpu_get_revision();
+
+/// @brief get the amount of logical processors on the CPU
+/// @return int processors
+unsigned int cpu_get_logical_processor_count();
 
 #endif

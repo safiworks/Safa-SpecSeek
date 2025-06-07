@@ -5,7 +5,7 @@
 /// @return const char* string describing the microarchitecture
 const char* amd_cpu_get_microarch(unsigned int family, unsigned int model, unsigned int ext_model);
 
-/// @brief get the Micro archetecture for the Current CPU [INTEL ONLY]
+/// @brief get the Micro archetecture for the Current CPU
 /// @param family CPU Family Value
 /// @param model the CPUs BASE model
 /// @param ext_model the CPUs Extended Model

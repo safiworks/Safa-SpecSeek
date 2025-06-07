@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include <system/hardware/CPU/cpu.h>
+#include <system/hardware/CPU/specifications.h>
 #include <utils/arguments.h>
 #include <utils/terminal.h>
 
@@ -18,6 +19,10 @@ cpu_t init_cpu(void) {
     cpu.ext_family  = cpu_get_extended_family();
     cpu.vendor      = cpu_get_vendor();
     cpu.revision    = cpu_get_revision();
+
+    cpu.logical_processors = amd_cpu_get_logical_processor_count();
+    cpu.physical_processors = amd_cpu_get_thread_per_core();
+    cpu.threads_per_core = amd_cpu_get_thread_per_core();
     return cpu;
 }
 
