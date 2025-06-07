@@ -20,7 +20,7 @@ typedef struct args{
 /// @param argc argument count (from main)
 /// @param argv argument vector (from main)
 /// @param args argument structure reference
-void construct_arguments(int argc, const char** argv);
+int construct_arguments(int argc, const char** argv);
 
 /// @brief 
 /// @return 

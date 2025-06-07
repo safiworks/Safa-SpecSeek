@@ -12,7 +12,7 @@
 /// @param argc argument count
 /// @param argv argument vector
 int main(int argc, const char** argv){
-    construct_arguments(argc, argv);
+    if (construct_arguments(argc, argv) != 0) return -1;
     if (!get_arguments().no_ansi) CLEAR_SCREEN();
 
     ASCII_DIVIDER("Spec Seek by Mellurboo", BLUE);
