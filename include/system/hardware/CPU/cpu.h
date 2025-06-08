@@ -109,4 +109,12 @@ unsigned int cpu_get_revision();
 /// @return int processors
 unsigned int cpu_get_physical_core_count();
 
+/// @brief gets the amount of threads from the cpu
+/// @return int threads
+unsigned int cpu_get_logical_processor_count();
+
+/// @brief gets how many thread each CPU core has
+/// @return uint physical cores
+unsigned int cpu_get_thread_per_core();
+
 #endif
