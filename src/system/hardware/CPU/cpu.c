@@ -23,6 +23,7 @@ cpu_t init_cpu(void) {
     cpu.logical_processors = amd_cpu_get_logical_processor_count();
     cpu.physical_processors = cpu_get_physical_core_count();
     cpu.threads_per_core = amd_cpu_get_thread_per_core();
+
     return cpu;
 }
 
@@ -144,20 +145,22 @@ unsigned int cpu_get_revision() {
 /// @return int physical cores
 unsigned int cpu_get_physical_core_count(){
     IF_VENDOR_AMD({return amd_cpu_get_physical_core_count();});
-    IF_VENDOR_INTEL({return -1;});
+    IF_VENDOR_INTEL({return intel_cpu_get_physical_core_count();});
     return -1;
 }
 
 /// @brief gets how many thread each CPU core has
-/// @return 
+/// @return uint physical cores
 unsigned int cpu_get_thread_per_core(){
     IF_VENDOR_AMD({return amd_cpu_get_thread_per_core();});
-    IF_VENDOR_INTEL({return -1;});
+    IF_VENDOR_INTEL({return intel_cpu_get_threads_per_core();});
     return -1;
 }
 
+/// @brief gets the amount of threads from the cpu
+/// @return int threads
 unsigned int cpu_get_logical_processor_count(){
     IF_VENDOR_AMD({return amd_cpu_get_logical_processor_count();});
-    IF_VENDOR_INTEL({return -1;});
+    IF_VENDOR_INTEL({return intel_cpu_get_logical_processor_count();});
     return -1;
 }

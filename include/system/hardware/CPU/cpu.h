@@ -30,6 +30,9 @@ typedef struct cpu
     unsigned int logical_processors;
     unsigned int physical_processors;
     unsigned int threads_per_core;
+
+    unsigned int max_standard_leaf;
+    unsigned int max_extended_leaf;
 }cpu_t;
 
 /// @brief CPUID instruction wrapper that places results from the leaf and subleaf into respective locations
@@ -47,6 +50,9 @@ void cpuid(
     unsigned int* ecx,
     unsigned int* edx
 );
+
+unsigned int max_supported_leaf();
+unsigned int max_supported_extended_leaf();
 
 /// @brief Constructs a CPU variable
 /// @return cpu_t
