@@ -5,10 +5,8 @@
 unsigned int amd_cpu_get_physical_core_count(){
     unsigned int eax, ebx, ecx, edx;
     cpuid(0, 0, &eax, &ebx, &ecx, &edx);
-    
-    unsigned int logical_processor_count = amd_cpu_get_logical_processor_count();
-    unsigned int core_per_thread = amd_cpu_get_thread_per_core();
-    return logical_processor_count / core_per_thread;
+
+    return amd_cpu_get_logical_processor_count() / amd_cpu_get_thread_per_core();
 }
 
 unsigned int amd_cpu_get_thread_per_core(){
@@ -21,7 +19,7 @@ unsigned int amd_cpu_get_thread_per_core(){
 
 unsigned int amd_cpu_get_logical_processor_count(){
     unsigned int eax, ebx, ecx, edx;
-    cpuid(1, 0 , &eax, &ebx, &ecx, &edx);
+    cpuid(0x80000008, 0, &eax, &ebx, &ecx, &edx);
 
-    return (ebx >> 16) & 0xFF;
+    return (ecx & 0xFF) + 1;
 }

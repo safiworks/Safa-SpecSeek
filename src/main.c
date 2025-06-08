@@ -49,9 +49,9 @@ void cpu_info(cpu_t cpu){
         printf("  %sExt. Family: %s0x%X\n", BWHITE, RED, cpu.ext_family);
         printf("%sRevision: %s0x%X", BWHITE, RED, cpu.revision);
         ASCII_DIVIDER_SMALL("Specifications", BRED);
-        printf("%sLogical Processors: %s%u\n", BWHITE, RED, cpu.logical_processors);
-        printf("  %sPhysical Cores: %s%u\n", BWHITE, RED, cpu.physical_processors);
-        printf("  %sThreads PerCore: %s%u\n", BWHITE, RED, cpu.threads_per_core);
+        printf("%sLogical Threads: %s%u\n", BWHITE, RED, cpu.logical_processors);
+        printf("%sPhysical Cores:  %s%u\n", BWHITE, RED, cpu.physical_processors);
+        printf("%sThreads PerCore: %s%u\n", BWHITE, RED, cpu.threads_per_core);
     });
 
     IF_VENDOR_INTEL({

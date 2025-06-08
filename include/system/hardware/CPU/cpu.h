@@ -5,6 +5,7 @@
 #define _INTEL_VENDOR_STRING   "GenuineIntel"
 
 #define HAS_FEATURE(reg, bit) (((reg) & (1 << (bit))) != 0)
+#define SUPPORTS_LEAF(leaf) if ()
 
 #define IF_VENDOR_AMD(amd_arch_code) \
     do { if (!memcmp(cpu_get_vendor(), _AMD_VENDOR_STRING, (unsigned long)12)) { amd_arch_code } } while (0)
@@ -98,8 +99,8 @@ unsigned int cpu_get_extended_family();
 /// @return unsigned int stepping number
 unsigned int cpu_get_revision();
 
-/// @brief get the amount of logical processors on the CPU
+/// @brief get the amount of physical cores on the CPU
 /// @return int processors
-unsigned int cpu_get_logical_processor_count();
+unsigned int cpu_get_physical_core_count();
 
 #endif
