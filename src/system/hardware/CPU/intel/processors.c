@@ -55,7 +55,7 @@ int get_physical_cores() {
 #if defined(__x86_64__) || defined(__i386__)
     unsigned int eax, ebx, ecx, edx;
     // Leaf 0xB gives topology on modern Intel CPUs
-    if (max_supported_leaf(0, NULL) >= 0xB) {
+    if (max_supported_leaf() >= 0xB) {
         int cores = 0;
         for (int level = 0; ; ++level) {
             cpuid(0xB, level, &eax, &ebx, &ecx, &edx);
@@ -68,7 +68,7 @@ int get_physical_cores() {
         return cores > 0 ? cores : 1;
     }
     // Fallback: older AMD/Intel CPUs, use leaf 4
-    else if (max_supported_leaf(0, NULL) >= 4) {
+    else if (max_supported_leaf() >= 4) {
         cpuid(4, 0, &eax, &ebx, &ecx, &edx);
         int cores = ((eax >> 26) & 0x3f) + 1;
         return cores > 0 ? cores : 1;
