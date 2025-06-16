@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <utils/common.h>
 #include <unistd.h>
 #include <utils/arguments.h>
 #include <utils/terminal.h>
@@ -14,12 +15,13 @@ int construct_arguments(int argc, const char** argv){
     for (int i = 1; i < argc; ++i){
         const char* arg = argv[i];
 
-        ARG_MATCH(_ARGUMENT_VERBOSE) { arguments.verbose = (i + 1 < argc && argv[i + 1][0] != '-') ? atoi(argv[++i]) : 1; return 0;}
-        ARG_MATCH(_ARGUMENT_NO_ANSI) { arguments.no_ansi = 1; return 0; }
-        ARG_MATCH(_ARGUMENT_PUT_FEATURES_ON_NEWLINE) { arguments.put_features_on_newline = 1; return 0;}
-
+        // I hate that I have to manually add continue; to all of these
+        ARG_MATCH(_ARGUMENT_VERBOSE) { arguments.verbose = (i + 1 < argc && argv[i + 1][0] != '-') ? atoi(argv[++i]) : 1; continue;}
+        ARG_MATCH(_ARGUMENT_NO_ANSI) { arguments.no_ansi = 1; continue;}
+        ARG_MATCH(_ARGUMENT_PUT_FEATURES_ON_NEWLINE) { arguments.put_features_on_newline = 1; continue;}
+        ARG_MATCH(_ARGUEMNT_HELP) {arguments.help = 1; continue;}
+        
         printf("%s%s%s is not a valid argument, use --help to see a list of commands, aborting%s\n", BRED, argv[i], RED, RESET);
-        fflush(stdout);
         return 1;
     }
 
@@ -28,6 +30,14 @@ int construct_arguments(int argc, const char** argv){
         arguments.no_ansi = 1;
     }
 
+    return 0;
+}
+
+int print_help(void){
+    printf("%s%s%s: %s\n", BWHITE, "--verbose {1 | 2 | 3}", YELLOW, "show more information, in varing levels, 3 being the most info");
+    printf("%s%s%s: %s\n", BWHITE, "--features-on-newline}", YELLOW, "prints all CPU features on a new line for readability");
+    printf("%s%s%s: %s\n", BWHITE, "--no-ansi", YELLOW, "inhibits all ANSI escape codes, so no colour or terminal clearing");
+    printf("%s%s%s: %s\n", BWHITE, "--help", YELLOW, "prints this help string");
     return 0;
 }
 

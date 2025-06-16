@@ -114,5 +114,6 @@ run: $(GCC_TARGET_32)
 #
 clean:
 	rm -rf bin
+	rm -rf .vscode
 
 .PHONY: all clean run debug

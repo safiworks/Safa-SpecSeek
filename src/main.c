@@ -15,6 +15,10 @@
 int main(int argc, const char** argv){
     if (construct_arguments(argc, argv) != 0) return -1;
     if (!get_arguments().no_ansi) CLEAR_SCREEN();
+    
+    if (get_arguments().help){
+        print_help(); return 0;
+    }
 
     ASCII_DIVIDER("Spec Seek by Mellurboo", BLUE);
     printf("%sCompiled with GCC Version %d.%d.%d\n", BLUE,__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
