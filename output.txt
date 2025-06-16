@@ -1,0 +1,37 @@
+
+=============== Spec Seek by Mellurboo ==============
+Compiled with GCC Version 15.1.1
+Compiled at: Jun 16 2025 : 14:48:42
+
+=============== Processor ==============
+Name:      12th Gen Intel(R) Core(TM) i5-1240P
+Microarch: Alder Lake
+Vendor:    GenuineIntel
+
+~~~~~~~~~~ Identifiers ~~~~~~~~~~
+Model: 0x9A:
+  Base Model: 0xA
+  Ext. Model: 0x9
+Family:	0x6:
+  Base Family: 0x6
+  Ext. Family: 0x0
+Revision: 0x3
+~~~~~~~~~~ Specifications ~~~~~~~~~~
+Logical Threads: 16
+Physical Cores:  16
+Threads PerCore: 1
+
+=============== CPU Standard Features ==============
+SSE3: TRUE;		PCLMUL: TRUE;		DTES64: TRUE;		VMX: TRUE;		
+SMX: TRUE;		EIST: TRUE;		TM2: TRUE;		SSSE3: TRUE;		
+FMA: TRUE;		CMCH16B: TRUE;		PCID: TRUE;		SSE4.1: TRUE;		
+SSE4.2: TRUE;		AES-NI: TRUE;		AVX: TRUE;		FPU: TRUE;		
+VME: TRUE;		DE: TRUE;		PAE: TRUE;		MCE: TRUE;		
+PGE: TRUE;		FXSR: TRUE;		HTT: TRUE;		
+=============== CPU Extended Features ==============
+BMI1: TRUE;		
+HLE: FALSE;		AVX2: TRUE;		SMEP: TRUE;		BMI2: TRUE;		
+RDT-M: FALSE;		MPX: FALSE;		RDSEED: TRUE;		ADX: TRUE;		
+SMAP: TRUE;		CLWB: TRUE;		SHA: TRUE;		UMIP: TRUE;		
+PKU: TRUE;		OPSKE: TRUE;		GFNI: TRUE;		VAES: TRUE;		
+LA57: FALSE;		KL: FALSE;		
