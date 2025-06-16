@@ -20,9 +20,9 @@ cpu_t init_cpu(void) {
     cpu.vendor      = cpu_get_vendor();
     cpu.revision    = cpu_get_revision();
 
-    cpu.logical_processors = cpu_get_logical_processor_count();
+    cpu.logical_processors  = cpu_get_logical_processor_count();
     cpu.physical_processors = cpu_get_physical_core_count();
-    cpu.threads_per_core = cpu_get_thread_per_core();
+    cpu.threads_per_core    = cpu_get_thread_per_core();
 
     return cpu;
 }

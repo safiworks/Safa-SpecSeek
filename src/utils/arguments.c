@@ -24,11 +24,21 @@ int construct_arguments(int argc, const char** argv){
         printf("%s%s%s is not a valid argument, use --help to see a list of commands, aborting%s\n", BRED, argv[i], RED, RESET);
         return 1;
     }
-
+    
     // TTY check for pipe output purity. we do not want ansi codes there
-    if(!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)){
+    // Linux GCC Implementation
+    #if defined(__GNUC__) && !defined(__MINGW32__)
+    if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)){
         arguments.no_ansi = 1;
     }
+    #endif
+
+    // Windows Compliant Implementation
+    #if defined(__MINGW32__)
+    if (!_isatty(STDIN_FILENO) || !_isatty(STDOUT_FILENO)){
+        arguments.no_ansi = 1;
+    }
+    #endif
 
     return 0;
 }
@@ -38,6 +48,7 @@ int print_help(void){
     printf("%s%s%s: %s\n", BWHITE, "--features-on-newline}", YELLOW, "prints all CPU features on a new line for readability");
     printf("%s%s%s: %s\n", BWHITE, "--no-ansi", YELLOW, "inhibits all ANSI escape codes, so no colour or terminal clearing");
     printf("%s%s%s: %s\n", BWHITE, "--help", YELLOW, "prints this help string");
+    fflush(stdout);
     return 0;
 }
 
