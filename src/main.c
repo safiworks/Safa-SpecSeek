@@ -28,8 +28,8 @@ int main(int argc, const char** argv){
 
     // Windows will close straight away after execution so this allows users to read it.
     #if defined(_WIN32)
-        printf("\n%sSpec Seek has finished, Press any key to exit: ", BWHITE);
-        getchar();
+    printf("\n%sSpec Seek has finished, Press any key to exit: ", BWHITE);
+    getchar();
     #endif
 
     printf("%s", RESET);
