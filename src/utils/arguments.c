@@ -27,14 +27,14 @@ int construct_arguments(int argc, const char** argv){
     
     // TTY check for pipe output purity. we do not want ansi codes there
     // Linux GCC Implementation
-    #if defined(__GNUC__) && !defined(__MINGW32__)
+    #if defined(__unix__)
     if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)){
         arguments.no_ansi = 1;
     }
     #endif
 
     // Windows Compliant Implementation
-    #if defined(__MINGW32__)
+    #if defined(_WIN32)
     if (!_isatty(STDIN_FILENO) || !_isatty(STDOUT_FILENO)){
         arguments.no_ansi = 1;
     }

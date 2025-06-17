@@ -27,9 +27,9 @@ int main(int argc, const char** argv){
     cpu_info(init_cpu());
 
     // Windows will close straight away after execution so this allows users to read it.
-    #ifdef __MINGW32__
-    printf("\n%sSpec Seek has finished, Press any key to exit: ", BWHITE);
-    getchar();
+    #if defined(_WIN32)
+        printf("\n%sSpec Seek has finished, Press any key to exit: ", BWHITE);
+        getchar();
     #endif
 
     printf("%s", RESET);
