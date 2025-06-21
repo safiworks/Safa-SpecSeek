@@ -17,7 +17,7 @@ MINGW_64 = x86_64-w64-mingw32-gcc
 #
 # Flag Options for Compilers
 #
-CFLAGS ?=
+CFLAGS ?= -nostdlib -ffreestanding -static -Ilibc/include -fno-stack-protector -D__safaos__
 COMMON_CFLAGS = -Wall -Wextra -Werror -Wno-unused-parameter -O2 -I include
 
 #
@@ -71,6 +71,14 @@ $(GCC_TARGET_32): $(GCC_OBJS_32)
 $(GCC_TARGET_64): $(GCC_OBJS_64)
 	@mkdir -p $(GCC_BIN_DIR_64)
 	$(CC) $(COMMON_CFLAGS) $(CFLAGS) -m64 -o $(GCC_BIN_DIR_64)/$(GCC_TARGET_64) $^
+
+safaos: $(GCC_OBJS_64)
+	git submodule update --init
+	cd libc; ./init.sh
+	cd libc; ./build.sh
+
+	@mkdir -p $(GCC_BIN_DIR_64)
+	$(CC) $(COMMON_CFLAGS) $(CFLAGS) -Llibc/out -lsalibc -lsafa_api -o $(GCC_BIN_DIR_64)/$(GCC_TARGET_64) $^
 
 #
 # Windows 32-bit build

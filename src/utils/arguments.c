@@ -20,14 +20,14 @@ int construct_arguments(int argc, const char** argv){
         ARG_MATCH(_ARGUMENT_NO_ANSI) { arguments.no_ansi = 1; continue;}
         ARG_MATCH(_ARGUMENT_PUT_FEATURES_ON_NEWLINE) { arguments.put_features_on_newline = 1; continue;}
         ARG_MATCH(_ARGUEMNT_HELP) {arguments.help = 1; continue;}
-        
+
         printf("%s%s%s is not a valid argument, use --help to see a list of commands, aborting%s\n", BRED, argv[i], RED, RESET);
         return 1;
     }
-    
+
     // TTY check for pipe output purity. we do not want ansi codes there
     // Linux GCC Implementation
-    #if defined(__unix__)
+    #if defined(__unix__) && !defined (__safaos__)
     if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO)){
         arguments.no_ansi = 1;
     }
@@ -55,4 +55,3 @@ int print_help(void){
 args_t get_arguments(void){
     return arguments;
 }
-

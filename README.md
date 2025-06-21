@@ -1,5 +1,8 @@
 
 ![Logo](https://i.imgur.com/Zg37VpH.png)
+# Safa-SpecSeek
+this is a fork of SpecSeek that adds support for SafaOS, although it doesn't assume it is going to be compiled on anything other than SafaOS, so i have done some dirty modifications.
+
 # SpecSeek. All in One Specification Tool
 
 A soloution to finding everything there is to know about a computers specifications. all in one elegant location. **a great way to share your device specifications support and features**. not sure if your PC supports some functionality? Spec Peek will relay that to you.
